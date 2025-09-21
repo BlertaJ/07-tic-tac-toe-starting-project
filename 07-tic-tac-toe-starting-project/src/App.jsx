@@ -8,7 +8,7 @@ function App() {
           <Player name="Player 1" symbol="X" />
           <Player name="Player 2" symbol="O" />
         </ol>
-        PLAYERS GAME BOARD
+        PLAYERS GAME BOARD 
       </div>
     </main>
   );
