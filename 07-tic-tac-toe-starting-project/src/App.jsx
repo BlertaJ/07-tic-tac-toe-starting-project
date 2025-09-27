@@ -65,6 +65,10 @@ function App() {
     setGameTurns((prevGameTurns) => [newTurn, ...prevGameTurns]);
   }
 
+function handleRestartGame() {
+    setGameTurns([]);
+  }
+
   return (
     <main>
       <div id="game-container">
@@ -80,7 +84,7 @@ function App() {
             isActive={currentPlayer === "O"}
           />
         </ol>
-        {(winner || hasDraw) && <GameOver winner={winner} />}
+        {(winner || hasDraw) && <GameOver winner={winner} onRestartGame={handleRestartGame} />}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
