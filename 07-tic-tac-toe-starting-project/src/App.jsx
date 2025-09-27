@@ -23,6 +23,10 @@ function derivedActivePlayer(turns) {
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
 
+  const [players, setPlayers] = useState({
+    X: "Player 1",
+    O: "Player 2",
+  });
   const currentPlayer = derivedActivePlayer(gameTurns);
 
   // Create a fresh copy of the initial game board each render
@@ -47,7 +51,7 @@ function App() {
       firstSquareSymbol === secondSquareSymbol &&
       firstSquareSymbol === thirdSquareSymbol
     ) {
-      winner = firstSquareSymbol;
+      winner = players[firstSquareSymbol];
       break; // stop checking once winner found
     }
   }
@@ -65,8 +69,15 @@ function App() {
     setGameTurns((prevGameTurns) => [newTurn, ...prevGameTurns]);
   }
 
-function handleRestartGame() {
+  function handleRestartGame() {
     setGameTurns([]);
+  }
+
+  function handlePlayerNameChange(playerSymbol, newName) {
+    setPlayers((prevPlayers) => ({
+      ...prevPlayers,
+      [playerSymbol]: newName,
+    }));
   }
 
   return (
@@ -77,14 +88,18 @@ function handleRestartGame() {
             initialName="Player 1"
             symbol="X"
             isActive={currentPlayer === "X"}
+            onChangeName={handlePlayerNameChange}
           />
           <Player
             initialName="Player 2"
             symbol="O"
             isActive={currentPlayer === "O"}
+            onChangeName={handlePlayerNameChange}
           />
         </ol>
-        {(winner || hasDraw) && <GameOver winner={winner} onRestartGame={handleRestartGame} />}
+        {(winner || hasDraw) && (
+          <GameOver winner={winner} onRestartGame={handleRestartGame} />
+        )}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
