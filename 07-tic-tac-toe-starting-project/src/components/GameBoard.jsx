@@ -7,11 +7,11 @@ const initialGameBoard = [
 ];
 
 export default function GameBoard() {
-  contet[(gameBoard, setgameBoard)] = useState(initialGameBoard); //to manage and update the game board state
+  const [gameBoard, setgameBoard] = useState(initialGameBoard);
 
   function handleSelectSquare(rowIndex, cellIndex) {
     setgameBoard((prevGameBoard) => {
-      const updatedGameBoard = [...prevGameBoard.map((row) => [...row])]; // Create a copy of the game board
+      const updatedGameBoard = prevGameBoard.map(row => [...row]);
       updatedGameBoard[rowIndex][cellIndex] = "X";
       return updatedGameBoard;
     });
@@ -19,12 +19,14 @@ export default function GameBoard() {
 
   return (
     <ol id="game-board">
-      {initialGameBoard.map((row, rowIndex) => (
+      {gameBoard.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((playerSymbol, cellIndex) => (
               <li key={cellIndex}>
-                <button onClick={() => handleSelectSquare(rowIndex, cell)}>{playerSymbol}</button>
+                <button onClick={() => handleSelectSquare(rowIndex, cellIndex)}>
+                  {playerSymbol || ""}
+                </button>
               </li>
             ))}
           </ol>
@@ -33,4 +35,3 @@ export default function GameBoard() {
     </ol>
   );
 }
-//inside the button we need x o or null
