@@ -21,7 +21,7 @@ function App() {
         { square: { row: rowIndex, col: cellIndex }, player: currentPlayer },
         ...prevGameTurns,
       ];
-      
+
       return updatedTurns;
     });
   }
@@ -43,7 +43,7 @@ function App() {
         </ol>
         <GameBoard
           onSelectSquare={handleSelectSquare}
-          activePlayerSymbol={activePlayer}
+          turns = {gameTurns}
         />
       </div>
       <Log />

@@ -4,7 +4,18 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard({onSelectSquare}) {
+export default function GameBoard({onSelectSquare, turns}) {
+  
+  let gameBoard = initialGameBoard;
+  
+  for (let turn of turns) {
+    const {square, player } = turn;
+    const { row, col } = square;
+    gameBoard[row][col] = player;
+  }
+
+  // We are avoiding intersecting states
+  // const [activePlayerSymbol, setActivePlayerSymbol] = useState("X");
   // const [gameBoard, setgameBoard] = useState(initialGameBoard);
 
   // function handleSelectSquare(rowIndex, cellIndex) {
@@ -23,7 +34,7 @@ export default function GameBoard({onSelectSquare}) {
           <ol>
             {row.map((playerSymbol, cellIndex) => (
               <li key={cellIndex}>
-                <button onClick={onSelectSquare}>
+                <button onClick={() => onSelectSquare(rowIndex, cellIndex)}>
                   {playerSymbol || ""}
                 </button>
               </li>
